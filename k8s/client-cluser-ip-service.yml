@@ -1,0 +1,12 @@
+#Used to expose cluster Ip of the pod to be able to connect to other pods
+apiVersion: v1
+kind: Service
+metadata:
+        name: client-cluster-ip-service
+spec:
+        type: ClusterIP
+        selector:
+                component: web
+        ports:
+        - port: 3000
+          targetPort: 3000

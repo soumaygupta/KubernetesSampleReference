@@ -1,0 +1,24 @@
+sudo: required
+services:
+        - docker
+
+before_install:
+        - docker build -t soumaygupta/multicontainer-app-training -f ./client/Dockerfile.dev ./client
+
+
+script:
+        - docker run -e CI=true soumaygupta/multicontainer-app-training npm test 
+
+after_success:
+        - docker build -t soumay94/multicontainerclient-example ./client
+        - docker build -t soumay94/multicontainernginx-example ./nginx
+        - docker build -t soumay94/multicontainerserver-example ./server
+        - docker build -t soumay94/multicontainerworker-example ./worker
+# Take these and push  images to docker hub.
+#modifi 
+# Log in to Docker CLI so the images can be pushed to DockerHub
+        - echo "$DOCKER_PASS" | docker login -u "$DOCKER_ID" --password-stdin
+        - docker push soumay94/multicontainerclient-example
+        - docker push soumay94/multicontainernginx-example
+        - docker push soumay94/multicontainerserver-example
+        - docker push soumay94/multicontainerworker-example 

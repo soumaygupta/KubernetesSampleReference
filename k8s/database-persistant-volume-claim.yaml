@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: database-persistant-volume-claim
+spec:
+  accessModes:
+          # There are 3 different access modes. According to requirement.
+  - ReadWriteOnce
+  resources:
+    requests:
+      storage: 2Gi
+  # VolumeStorageClass: Can be used to select which volume you want to use
