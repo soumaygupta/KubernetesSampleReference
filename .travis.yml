@@ -16,7 +16,7 @@ before_install:
   - gcloud config set project meta-yen-317503
   - gcloud config set compute/zone us-central1-c
   - gcloud container clusters get-credentials multi-cluster
-  - "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --pass-stdin
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --pass-stdin
   - docker build -t soumaygupta/KubernetesSampleReference -f ./client/Dockerfile.dev ./client
 
 script:
